@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environments
+.venv/
+venv/
+
+# VS Code / IDE
+.vscode/
+.idea/
+
+# Data: keep CSVs, ignore raw images
+data/images/
+data/raw/
+
+# TensorFlow / training caches (just in case)
+*.tfrecord
+*.log
+logs/
+checkpoints/
+
+# OS noise
+.DS_Store
+Thumbs.db
