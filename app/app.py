@@ -11,6 +11,9 @@ import plotly.express as px
 BASE_DIR = Path(__file__).resolve().parent.parent
 sys.path.append(str(BASE_DIR / "src"))
 
+import importlib
+import infer_manual
+importlib.reload(infer_manual)
 from infer_manual import infer
 
 # --- PAGE CONFIG ---
@@ -20,6 +23,10 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded"
 )
+
+# --- SESSION STATE RESET ---
+if "last_uploaded_file" not in st.session_state:
+    st.session_state.last_uploaded_file = None
 
 # --- CUSTOM CSS ---
 st.markdown("""
@@ -133,6 +140,12 @@ with col1:
     )
     
     if uploaded_image:
+        # Reset state if a new image is uploaded
+        if st.session_state.last_uploaded_file != uploaded_image.name:
+            st.session_state.last_uploaded_file = uploaded_image.name
+            if 'result' in st.session_state:
+                del st.session_state.result
+        
         image = Image.open(uploaded_image)
         st.image(image, caption="Current Diagnostic Subject", use_container_width=True)
         
