@@ -77,12 +77,22 @@ def infer(image: Image.Image, crop: str, region: str, season: str) -> Dict:
     for idx in top_indices:
         p_label = idx_to_class[idx]
         p_conf = float(preds[idx])
-        p_cure_info = CURE_GUIDE.get(p_label, DEFAULT_CURE)
+        
+        # Smart lookup: fallback to raw label if not in guide
+        if p_label in CURE_GUIDE:
+            p_cure_info = CURE_GUIDE[p_label]
+            issue_name = p_cure_info["issue"]
+            cure_text = p_cure_info["cure"]
+        else:
+            # Format raw label like "Tomato___Early_blight" -> "Tomato - Early Blight"
+            issue_name = p_label.replace("___", " - ").replace("_", " ")
+            cure_text = DEFAULT_CURE["cure"]
+            
         top_predictions.append({
             "label": p_label,
             "confidence": p_conf,
-            "issue": p_cure_info["issue"],
-            "cure": p_cure_info["cure"]
+            "issue": issue_name,
+            "cure": cure_text
         })
 
     best = top_predictions[0]

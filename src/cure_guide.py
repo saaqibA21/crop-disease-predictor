@@ -46,6 +46,37 @@ CURE_GUIDE = {
             "Ensure good field drainage and avoid dense canopies that keep leaves wet."
         )
     },
+    "Corn_(maize)___Common_rust_": {
+        "issue": "Corn – Common Rust",
+        "cure": (
+            "Usually managed by planting resistant hybrids. If infection is early and severe, "
+            "apply a foliar fungicide. Ensure good soil nitrogen and avoid overhead irrigation."
+        )
+    },
+    "Grape___Black_rot": {
+        "issue": "Grape – Black Rot",
+        "cure": (
+            "Prune infected vines and remove mummified berries from the ground. "
+            "Apply fungicides early in the season (pre-bloom and post-bloom). "
+            "Maintain an open canopy for better airflow and faster drying."
+        )
+    },
+    "Tomato___Tomato_Yellow_Leaf_Curl_Virus": {
+        "issue": "Tomato – Yellow Leaf Curl Virus",
+        "cure": (
+            "This virus is spread by whiteflies. Use physical barriers like fine mesh nets. "
+            "Control whitefly populations using yellow sticky traps or neem oil. "
+            "Remove and destroy infected plants immediately to prevent further spread."
+        )
+    },
+    "Apple___Apple_scab": {
+        "issue": "Apple – Apple Scab",
+        "cure": (
+            "Rake and destroy fallen leaves in autumn to reduce spores. "
+            "Apply sulfur or lime-sulfur sprays during the green tip phase and "
+            "continue at recommended intervals during the growing season."
+        )
+    },
     # You can keep adding more mapping entries as needed for other PlantVillage classes
 }
 
