@@ -158,6 +158,7 @@ with col2:
                     <div>
                         <div class="disease-title">{res['issue']}</div>
                         <span class="confidence-badge">AI Confidence: {res['confidence']*100:.2f}%</span>
+                        <div style="font-size: 11px; color: #90a4ae; margin-top: 5px;">Raw Label: <code>{res['label']}</code></div>
                     </div>
                     <div style="font-size: 40px;">🔬</div>
                 </div>

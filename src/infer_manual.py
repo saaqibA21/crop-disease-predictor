@@ -78,14 +78,16 @@ def infer(image: Image.Image, crop: str, region: str, season: str) -> Dict:
         p_label = idx_to_class[idx]
         p_conf = float(preds[idx])
         
-        # Smart lookup: fallback to raw label if not in guide
+        # Clean the label for display if not in guide
+        # e.g., "Corn_(maize)___Common_rust_" -> "Corn (Maize) - Common Rust"
+        display_name = p_label.replace("___", " - ").replace("_", " ").title()
+        
         if p_label in CURE_GUIDE:
             p_cure_info = CURE_GUIDE[p_label]
             issue_name = p_cure_info["issue"]
             cure_text = p_cure_info["cure"]
         else:
-            # Format raw label like "Tomato___Early_blight" -> "Tomato - Early Blight"
-            issue_name = p_label.replace("___", " - ").replace("_", " ")
+            issue_name = display_name
             cure_text = DEFAULT_CURE["cure"]
             
         top_predictions.append({
