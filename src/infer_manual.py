@@ -70,17 +70,27 @@ def infer(image: Image.Image, crop: str, region: str, season: str) -> Dict:
     ctx_vec = ctx_encoder.transform(ctx_df[CONTEXT_COLS])
 
     preds = model.predict([img_batch, ctx_vec], verbose=0)[0]
-    idx = int(np.argmax(preds))
-    confidence = float(preds[idx])
-    label = idx_to_class[idx]
+    
+    # Get top 3 predictions
+    top_indices = np.argsort(preds)[-3:][::-1]
+    top_predictions = []
+    for idx in top_indices:
+        p_label = idx_to_class[idx]
+        p_conf = float(preds[idx])
+        p_cure_info = CURE_GUIDE.get(p_label, DEFAULT_CURE)
+        top_predictions.append({
+            "label": p_label,
+            "confidence": p_conf,
+            "issue": p_cure_info["issue"],
+            "cure": p_cure_info["cure"]
+        })
 
-    cure_info = CURE_GUIDE.get(label, DEFAULT_CURE)
-    issue = cure_info["issue"]
-    cure = cure_info["cure"]
+    best = top_predictions[0]
 
     return {
-        "label": label,
-        "issue": issue,
-        "confidence": confidence,
-        "cure": cure,
+        "label": best["label"],
+        "issue": best["issue"],
+        "confidence": best["confidence"],
+        "cure": best["cure"],
+        "top_predictions": top_predictions
     }
